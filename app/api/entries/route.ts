@@ -1,6 +1,6 @@
 export async function GET() {
   try {
-    const response = await fetch(`${process.env.API_URL}/entrie`);
+    const response = await fetch(`${process.env.API_URL}/entries`);
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({
