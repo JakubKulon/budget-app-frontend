@@ -1,9 +1,21 @@
 export async function GET() {
-  const response = await fetch(`${process.env.API_URL}entries`);
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
-  }
+  try {
+    const response = await fetch(`${process.env.API_URL}/entrie`);
 
-  const resFromApi = await response.json();
-  return Response.json(resFromApi);
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({
+        error: "Unknown error occurred",
+      }));
+
+      return Response.json(errorData, { status: response.status });
+    }
+
+    const resFromApi = await response.json();
+    return Response.json(resFromApi);
+  } catch {
+    return Response.json(
+      { error: "Failed to connect to backend service" },
+      { status: 500 },
+    );
+  }
 }

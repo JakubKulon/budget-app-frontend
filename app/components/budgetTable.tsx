@@ -21,7 +21,7 @@ export function BudgetTable() {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
         <h1>Budget App</h1>
-        <p className="text-red-600">Error: {error.message}</p>
+        <p className="text-red-600">Error!</p>
       </div>
     );
   }

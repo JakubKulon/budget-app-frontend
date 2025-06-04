@@ -4,6 +4,17 @@ export type apiResponse<T> = {
   length?: number;
 };
 
+export type ApiError = {
+  code: string;
+  message: string;
+  statusCode?: number;
+};
+
+export type ApiErrorResponse = {
+  success: false;
+  error: ApiError;
+};
+
 export enum Occurrence {
   per_month = "per_month",
   per_2_months = "per_2_months",
