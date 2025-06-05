@@ -55,12 +55,9 @@ export function AddEntryForm({
   };
 
   const handleSubmit = (e: React.FormEvent) => {
-    console.log("🎯 FORM SUBMIT HANDLER CALLED!");
     e.preventDefault();
-    console.log("Form submitted with data:", formData);
 
     if (!validateForm()) {
-      console.log("Validation failed");
       return;
     }
 

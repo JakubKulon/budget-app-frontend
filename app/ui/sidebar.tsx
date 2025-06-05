@@ -14,8 +14,7 @@ export function Sidebar() {
 
   const addEntryMutation = useMutation({
     mutationFn: BudgetApiQuery.addEntry,
-    onSuccess: (data) => {
-      console.log("Entry added successfully:", data);
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["entries"] });
       setIsModalOpen(false);
       addEntryMutation.reset();
@@ -28,16 +27,9 @@ export function Sidebar() {
         name: error.name,
       });
     },
-    onMutate: (variables) => {
-      console.log("Starting mutation with data:", variables);
-    },
-    onSettled: (data, error) => {
-      console.log("Mutation settled:", { data, error });
-    },
   });
 
   const handleAddEntryAction = (data: AddEntryFormData) => {
-    console.log("ACTIONADDENTRY");
     addEntryMutation.mutate(data);
   };
 

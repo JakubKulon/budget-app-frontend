@@ -1,7 +1,5 @@
 export async function POST(req) {
   try {
-    console.log("🚀 POST /api/create-entry called");
-
     // Parse the incoming form data from the request
     const formData = await req.json();
     const response = await fetch(`${process.env.API_URL}/create-entry/`, {
@@ -19,7 +17,6 @@ export async function POST(req) {
 
       return Response.json(errorData, { status: response.status });
     }
-    console.log(formData, "FORM DATA");
     return Response.json(response);
   } catch {
     return Response.json(
