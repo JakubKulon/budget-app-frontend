@@ -1,4 +1,4 @@
-import { BudgetApiQuery } from "@/utils/apiQuery";
+import { BudgetApiQuery } from "@/app/utils/apiQuery";
 import { useQuery } from "@tanstack/react-query";
 import { BudgetTableUI } from "./budget-table-ui";
 
@@ -10,7 +10,7 @@ export function BudgetTable() {
 
   if (isLoading) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <div className="flex flex-col items-center justify-center min-h-screen ">
         <h1>Budget App</h1>
         <p>Loading...</p>
       </div>
@@ -19,7 +19,7 @@ export function BudgetTable() {
 
   if (error) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <div className="flex flex-col items-center justify-center min-h-screen ">
         <h1>Budget App</h1>
         <p className="text-red-600">Error!</p>
       </div>

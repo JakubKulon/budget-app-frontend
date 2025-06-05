@@ -1,12 +1,7 @@
 "use client";
 
-import Providers from "./provider";
-import { BudgetTable } from "./components/budgetTable";
+import { BudgetTable } from "./ui/budget-table";
 
 export default function Home() {
-  return (
-    <Providers>
-      <BudgetTable />
-    </Providers>
-  );
+  return <BudgetTable />;
 }
