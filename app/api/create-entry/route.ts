@@ -1,4 +1,4 @@
-export async function POST(req) {
+export async function POST(req: Request) {
   try {
     // Parse the incoming form data from the request
     const formData = await req.json();
