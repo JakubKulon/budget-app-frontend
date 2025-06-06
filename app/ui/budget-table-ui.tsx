@@ -7,6 +7,9 @@ import {
   flexRender,
   getSortedRowModel,
 } from "@tanstack/react-table";
+import { Button } from "./button";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { BudgetApiQuery } from "../utils/apiQuery";
 
 type BudgetTableUIType = {
   data: EntryType[];
@@ -14,6 +17,23 @@ type BudgetTableUIType = {
 
 export function BudgetTableUI({ data }: BudgetTableUIType) {
   const columnHelper = createColumnHelper<EntryType>();
+  const queryClient = useQueryClient();
+
+  const deleteEntryMutation = useMutation({
+    mutationFn: BudgetApiQuery.deleteEntry,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["entries"] });
+      deleteEntryMutation.reset();
+    },
+    onError: (error) => {
+      console.error("Error removing entry:", error);
+      console.error("Error details:", {
+        message: error.message,
+        stack: error.stack,
+        name: error.name,
+      });
+    },
+  });
 
   const columns = [
     columnHelper.accessor("name", {
@@ -41,6 +61,19 @@ export function BudgetTableUI({ data }: BudgetTableUIType) {
       cell: (info) => formatTimestamp(info.getValue()) || "N/A",
       enableSorting: true,
     }),
+    columnHelper.accessor("id", {
+      id: "remove",
+      header: "Delete",
+      cell: (item) => (
+        <Button
+          onClick={() => deleteEntryMutation.mutate(item.getValue())}
+          className="px-3 py-1 text-sm bg-red-600 hover:bg-red-700 text-white rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-800"
+          title="Remove entry"
+        >
+          Remove
+        </Button>
+      ),
+    }),
   ];
 
   const table = useReactTable({
@@ -51,7 +84,7 @@ export function BudgetTableUI({ data }: BudgetTableUIType) {
     initialState: {
       sorting: [
         {
-          id: 'createDate',
+          id: "createDate",
           desc: true,
         },
       ],

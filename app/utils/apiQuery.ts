@@ -35,4 +35,24 @@ export class BudgetApiQuery {
 
     return await response.json();
   }
+
+  static async deleteEntry(id: EntryType["id"]) {
+    const response = await fetch("/api/delete-entry/", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: id }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({
+        error: "Failed to parse error response",
+      }));
+
+      throw errorData;
+    }
+
+    return await response.json();
+  }
 }
