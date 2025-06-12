@@ -7,9 +7,9 @@ import {
   flexRender,
   getSortedRowModel,
 } from "@tanstack/react-table";
-import { Button } from "./button";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { BudgetApiQuery } from "../utils/apiQuery";
+import { BudgetApiQuery } from "@/app/utils/apiQuery";
+import { Button } from "../button";
 
 type BudgetTableUIType = {
   data: EntryType[];
@@ -92,12 +92,12 @@ export function BudgetTableUI({ data }: BudgetTableUIType) {
   });
 
   return (
-    <table className="table-fixed w-full rounded-md bg-gray-800 text-gray-300">
-      <thead className="border-b border-gray-500">
+    <table className="table-auto w-full rounded-md bg-gray-800 ">
+      <thead className="border-b border-gray-500 bg-gray-900">
         {table.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id}>
             {headerGroup.headers.map((header) => (
-              <th key={header.id} className="text-left">
+              <th key={header.id} className="text-left text-gray-400">
                 <div
                   className={
                     header.column.getCanSort()
@@ -129,9 +129,9 @@ export function BudgetTableUI({ data }: BudgetTableUIType) {
           </tr>
         ))}
       </thead>
-      <tbody>
+      <tbody className="bg-gray-800 text-gray-500">
         {table.getRowModel().rows.map((row) => (
-          <tr key={row.id}>
+          <tr key={row.id} className="border-b border-b-gray-700">
             {row.getVisibleCells().map((cell) => (
               <td key={cell.id}>
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
